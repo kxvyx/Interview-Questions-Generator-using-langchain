@@ -1,0 +1,10 @@
+streamlit
+python-dotenv
+pypdf
+faiss-cpu
+langchain
+langchain-community
+langchain-google-genai
+audio-recorder-streamlit
+deepgram-sdk==2.12.0
+pydub
