@@ -12,3 +12,6 @@ Thumbs.db
 
 # Ignore all PDF files
 *.pdf
+
+# Ignore folder
+faiss_index/

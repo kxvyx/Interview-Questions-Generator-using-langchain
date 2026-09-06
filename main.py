@@ -4,6 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import Chroma, FAISS, DistanceStrategy
+from prompt_template import get_chat_model, build_prompt, generate_interview_questions
 
 load_dotenv()
 
@@ -33,10 +34,16 @@ def main():
     docs = load_pdf("Deloitte_JD.pdf")
     chunks = chuck_documents(docs)
     vectorstore = build_vectorstore(chunks)
-
+    vectorstore.save_local("faiss_index")
+  
     query = "what are the qualifications required for this role?"
-    for doc, score in search(vectorstore, query):
-        print(f"Score: {score}, Content: {doc.page_content}")
+    context = "\n\n".join(doc.page_content for doc, score in search(vectorstore, query))
+
+    chat_model = get_chat_model()
+    prompt_template = build_prompt()
+    interview_questions = generate_interview_questions(chat_model, prompt_template, context, num_categories=5, questions_per_category=5)
+    print(interview_questions)
+        
 
 if __name__ == "__main__":
     main()
