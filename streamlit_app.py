@@ -67,12 +67,12 @@ def run_with_loader(func, messages, container, args=(), kwargs=None, interval=1.
         raise result["error"]
     return result["value"]
 
-st.title("Put JD to get interview guide ;)")
+st.title("Interview Questions Generator on Job Description")
 
-uploaded_file = st.file_uploader("Upload a PDF file, no nudes plz🙏", type=["pdf"])
+uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
 
 
-if uploaded_file and st.button("Generate Questions & Answers", disabled=st.session_state.get("running", False)):
+if uploaded_file and st.button("Generate QnA", disabled=st.session_state.get("running", False)):
     st.session_state.running = True
     status = st.empty()
 
